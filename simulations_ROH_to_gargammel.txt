@@ -1,0 +1,35 @@
+# Text output files of Simulations_1_ROH_to_bed.R will be used as input
+for line in $(cat path/simulated_individual_list.txt)
+do
+sed -e 's/ /\t/g' $line.txt > $line.out # to remove spaces from file names
+paste -d"\t" 1240K_only_positions.bed $line.out > $line.bed
+done
+
+for line in $(cat path/simulated_individual_list.txt)
+do
+path/modifyFasta.sh $line.bed # this creates two fasta files for each simulated individual with inserted ROH
+done
+
+# gargammel to generate simulated reads of size 70 bp with ancient DNA damage
+
+for line in $(cat path/simulated_individual_list.txt)
+do
+cp path/$line.1.fa path/gargammel/data/endo
+cp path/$line.2.fa path/gargammel/data/endo
+samtools faidx path/gargammel/data/endo/$line.1.fa
+samtools faidx path/gargammel/data/endo/$line.2.fa
+./gargammel.pl -c 3 --comp 0,0,1 -l 70 -damage 0.03,0.4,0.01,0.3 -o data/simulation data/
+rm path/gargammel/data/endo/$line.1.fa
+rm path/gargammel/data/endo/$line.2.fa
+rm /gargammel/data/endo/$line.1.fa.fai
+rm path/gargammel/data/endo/$line.2.fa.fai
+rm simulation_a.fa.gz
+rm simulation.b.fa.gz
+rm simulation.c.fa.gz
+rm simulation_d.fa.gz
+rm simulation.e.fa.gz
+mv simulation_s1.fq.gz $line.s1.fq.gz
+mv simulation_s2.fq.gz $line.s2.fq.gz
+done
+
+# The resulting fastq files can be used as input for the mapping and ROH calling pipeline.
