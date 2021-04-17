@@ -83,7 +83,7 @@ done
 
 ### 2.3. Comparing results
 
-These simulated fastq files were mapped to human reference genome (hs37d5.fa) and clipped bam files by using trimBAM (link!!!). Then we called ROH by using plink (see step 1).
+These simulated fastq files were mapped to human reference genome (hs37d5.fa) and clipped bam files by using trimBam. Then we called ROH by using plink (see step 1).
 Finally we got hom file for each simulated indivual.
 
 The compare results following R code were used.
