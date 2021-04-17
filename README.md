@@ -1,6 +1,6 @@
 # Runs of Homozygosity analysis for ancient genomes
 
-**Pipeline for ROH analysis for ancient genomes (Cebellos, Gürün et al. 2021, Current Biology)**
+**Pipeline for ROH analysis for ancient genomes (Ceballos, Gürün et al. 2021, Current Biology)**
 
 Here we describe a pipeline to call ROH, starting from bam files as the first type of input files.
 
